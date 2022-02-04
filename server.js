@@ -24,7 +24,7 @@ mongoDB.connect(
 // });
 
 app.get("/", (req, res, next) => {
-  return res.send("Select a collection");
+  return res.sendFile(__dirname + "/fetch-post.html");
 });
 
 app.param("collectionName", (req, res, next, collectionName) => {
