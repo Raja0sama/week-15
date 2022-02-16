@@ -19,6 +19,18 @@ mongoDB.connect(
     db = client.db("webstore");
   }
 );
+app.use(express.static("public"));
+
+app.use((req, res, next) => {
+  console.log("Incoming Request - ", {
+    url: req.url,
+    method: req.method,
+    query: req.query,
+    params: req.params,
+    body: req.body,
+  });
+  next();
+});
 
 app.get("/", (req, res, next) => {
   res.send("Hello Mom(world)");
