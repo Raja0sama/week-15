@@ -31,8 +31,15 @@ app.param("collectionName", (req, res, next, collectionName) => {
 
 app.get("/collection/:collectionName", (req, res, next) => {
   const collection = req.collection;
+  const search = req?.query?.search;
+  let q = {};
+  if (search) {
+    const [name, value] = search.split(":");
+    const reg = new RegExp(value, "i");
+    q = { [`${name}`]: { $in: [reg] } };
+  }
 
-  collection.find({}).toArray((err, docs) => {
+  collection.find(q).toArray((err, docs) => {
     if (err) {
       res.send("Error");
     } else {
