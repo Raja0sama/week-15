@@ -2,7 +2,9 @@
 const express = require("express");
 const mongoDB = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectId;
+const cors = require("cors");
 const app = express();
+app.use(cors());
 // app.use(bodyParser);
 app.use(express.json());
 
@@ -18,13 +20,8 @@ mongoDB.connect(
   }
 );
 
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   next();
-// });
-
 app.get("/", (req, res, next) => {
-  return res.sendFile(__dirname + "/fetch-post.html");
+  res.send("Hello Mom(world)");
 });
 
 app.param("collectionName", (req, res, next, collectionName) => {
